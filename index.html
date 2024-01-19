@@ -263,11 +263,9 @@
       createApp({
         setup() {
           const baseUrl = "https://siwaslu2024.bawaslu.go.id/api";
-          const isAlreadyLogin = ref(true);
+          const isAlreadyLogin = ref(false);
           const isLoading = ref(false);
-          const access_token = ref(
-            "Bearer 50974|b0sQAzGnVy9F639fEyKHjMNd4E0YT8QV8OY85NzO"
-          );
+          const access_token = ref("");
           const user = ref({
             id: null,
             name: "",
