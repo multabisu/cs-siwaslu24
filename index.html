@@ -429,7 +429,15 @@
                   `/api/user?${
                     user.value.name ? "name=" + user.value.name : ""
                   }${user.value.id ? "&id=" + user.value.id : ""}${
-                    user.value.phone ? "phone=" + user.value.phone : ""
+                    user.value.phone ? "&phone=" + user.value.phone : ""
+                  }${
+                    user.value.provinsi ? "&name_provinsi=" + user.value.provinsi : ""
+                  }${
+                    user.value.kab_kota ? "&name_kab_kota=" + user.value.kab_kota : ""
+                  }${
+                    user.value.kecamatan ? "&name_kecamatan=" + user.value.kecamatan : ""
+                  }${
+                    user.value.desa_kel ? "&name_desa_kel=" + user.value.desa_kel : ""
                   }`,
                 {
                   method: "GET",
