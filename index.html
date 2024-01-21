@@ -618,16 +618,10 @@
           };
 
           const resetFormOrDeactivate = (isDeactivate) => {
-            const route = `/api/cs/user/${selectedUser.value.id}/reset_form`
-
-            if (isDeactivate) {
-              route = `/api/cs/user/${selectedUser.value.id}/reset_form?deactivate=1`
-            }
-
             async function postFormOrDeactivate() {
               isLoading.value = true;
               const responseFormOrDeactivate = await fetch(
-                baseUrl + route,
+                baseUrl + `/api/cs/user/${selectedUser.value.id}${isDeactivate ? '/reset_form?deactivate=1' : '' }`,
                 {
                   method: "GET",
                   headers: {
