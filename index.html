@@ -75,7 +75,7 @@
                     >ID</label
                   >
                   <input
-                    type="text"
+                    type="number"
                     placeholder="ID"
                     v-model="user.id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -175,6 +175,7 @@
   
               <button
                 type="submit"
+                :disabled="isSearchDisabled"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Cari
@@ -275,7 +276,7 @@
               <div>
                 <div class="lg:grid grid-cols-3 gap-4">
                   <div v-for="(value, key) in selectedUser">
-                    <div class="border-b pb-2 border-gray-300">
+                    <div v-if="[1, 2, 3, 4, 5].includes(selectedUser.level_id)" class="border-b pb-2 border-gray-300">
                         <label class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">{{ key }}</label>
                         <div v-if="key == 'id'"><p class="font-semibold">{{ value }}</p></div>
 
@@ -297,6 +298,24 @@
                           'bg-green-500 text-white' : value, 'bg-red-500 text-white' : !value,
                         }">{{ value === 1 ? 'Sudah Kirim Formulir' : 'Belum' }}</p></div>
                     </div>
+                    <div v-else class="border-b pb-2 border-gray-300">
+                      <label class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">{{ key }}</label>
+                      <div v-if="key == 'id'"><p class="font-semibold">{{ value }}</p></div>
+
+                      <div v-else-if="key == 'name'">
+                        <input v-model="payloadChangeUser.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  required>
+                      </div>
+                      
+                      <div v-else-if="key == 'phone'">
+                        <input v-model="payloadChangeUser.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                      </div>
+                      
+                      <div v-else-if="key == 'tps_no' && selectedUser.level_id === 5">
+                        <input v-if="value" v-model="payloadChangeUser.tps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  >
+                        <p v-else>-</p>
+                      </div>
+                      <div v-else><p class="font-semibold">{{ value ? value : '-' }}</p></div>
+                  </div>
                   </div>
                   <div class="border-b pb-2 border-gray-300">
                       <label class="block mb-2 text-sm font-medium text-gray-500 dark:text-white">Password</label>
@@ -402,7 +421,7 @@
         
 
     <script>
-      const { createApp, ref } = Vue;
+      const { createApp, ref, computed } = Vue;
 
       createApp({
         setup() {
@@ -416,7 +435,7 @@
           });
           const admin_name = ref(''); 
           const user = ref({
-            id: null,
+            id: "",
             name: "",
             phone: "",
             provinsi: "",
@@ -661,6 +680,11 @@
             });
           };
 
+
+          const isSearchDisabled = computed((x) => {
+            return user.value.id == "" && user.value.name == "" && user.value.name_provinsi == "" && user.value.name_kab_kota == "" && user.value.name_kecamatan == "" && user.value.name_desa_kel == "" && user.value.phone == null && user.value.level == ""
+          })
+
           return {
             baseUrl,
             adminForm,
@@ -679,6 +703,7 @@
             reset,
             updateUser,
             resetFormOrDeactivate,
+            isSearchDisabled,
           };
         },
       }).mount("#app");
