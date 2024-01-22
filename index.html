@@ -64,7 +64,7 @@
             </h1>
   
             <form @submit.prevent="searchUser()">
-              <div class="grid gap-6 mb-6 md:grid-cols-3">
+              <div class="grid gap-6 mb-6 md:grid-cols-4">
                 <div>
                   <label
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -72,6 +72,7 @@
                   >
                   <input
                     type="text"
+                    placeholder="ID"
                     v-model="user.id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -83,6 +84,7 @@
                   >
                   <input
                     type="text"
+                    placeholder="Nama"
                     v-model="user.name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -94,9 +96,26 @@
                   >
                   <input
                     type="text"
+                    placeholder="Nomor"
                     v-model="user.phone"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
+                </div>
+                <div>
+                  <label
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Level</label
+                  >
+                  <select v-model="user.level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected value="">Pilih Level</option>
+                    <option value="1">Provinsi</option>
+                    <option value="2">Kab/Kota</option>
+                    <option value="3">Kecamatan</option>
+                    <option value="4">Desa/Kelurahan</option>
+                    <option value="5">PTPS</option>
+                    <option value="6">Pusat</option>
+                    <option value="999">Tidak Aktif</option>
+                  </select>
                 </div>
               </div>
               <div class="grid gap-6 mb-6 md:grid-cols-4">
@@ -107,6 +126,7 @@
                   >
                   <input
                     type="text"
+                    placeholder="Provinsi"
                     v-model="user.provinsi"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -118,6 +138,7 @@
                   >
                   <input
                     type="text"
+                    placeholder="Kabupaten / Kota"
                     v-model="user.kab_kota"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -129,6 +150,7 @@
                   >
                   <input
                     type="text"
+                    placeholder="Kecamatan"
                     v-model="user.kecamatan"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -140,6 +162,7 @@
                   >
                   <input
                     type="text"
+                    placeholder="Desa / Kelurahan"
                     v-model="user.desa_kel"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   />
@@ -260,18 +283,15 @@
                           <input v-model="payloadChangeUser.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         </div>
                         
-                        <div v-else-if="key == 'tps'">
+                        <div v-else-if="key == 'tps_no' && selectedUser.level_id === 5">
                           <input v-if="value" v-model="payloadChangeUser.tps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  >
                           <p v-else>-</p>
                         </div>
 
-                        <div v-else-if="key == 'name_provinsi'"><p class="font-semibold">{{ value }}</p></div>
-                        <div v-else-if="key == 'name_kab_kota'"><p class="font-semibold">{{ value }}</p></div>
-                        <div v-else-if="key == 'name_kecamatan'"><p class="font-semibold">{{ value }}</p></div>
-                        <div v-else-if="key == 'name_desa_kel'"><p class="font-semibold">{{ value }}</p></div>
+                        <div v-else-if=" ['id_provinsi', 'id_kab_kota', 'id_kecamatan', 'id_desa_kel', 'name_provinsi', 'level_id', 'name_kab_kota', 'name_kecamatan', 'name_desa_kel'].includes(key)"><p class="font-semibold">{{ value }}</p></div>
                         <div v-else><p class="font-semibold p-2 text-xs rounded-lg" :class="{
                           'bg-green-500 text-white' : value, 'bg-red-500 text-white' : !value,
-                        }">{{ value ? "Sudah Kirim Formulir" : "Belum" }}</p></div>
+                        }">{{ value === 1 ? 'Sudah Kirim Formulir' : 'Belum' }}</p></div>
                     </div>
                   </div>
                   <div class="border-b pb-2 border-gray-300">
@@ -384,8 +404,8 @@
         setup() {
           const baseUrl = "https://siwaslu2024.bawaslu.go.id/api";
           const isLoading = ref(false);
-          const isAlreadyLogin = ref(false);
-          const access_token = ref("");
+          const isAlreadyLogin = ref(true);
+          const access_token = ref("Bearer 198604|aHmxYGFQL7cwZ9LPWQAMhwxhgEIe2HRTy64KYyvc");
           const adminForm = ref({
             email: "",
             password: "",
@@ -395,6 +415,7 @@
             name: "",
             phone: "",
             provinsi: "",
+            level: "",
             kab_kota: "",
             kecamatan: "",
             desa_kel: "",
@@ -539,7 +560,7 @@
                 id: x.data.id,
                 name: x.data.name,
                 phone: x.data.phone,
-                tps: x.data.tps,
+                tps: x.data.tps_no,
                 password: "",
               };
 
