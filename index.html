@@ -112,11 +112,11 @@
                   >
                   <select v-model="user.level" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected value="">Pilih Level</option>
-                    <option value="1">Provinsi</option>
-                    <option value="2">Kab/Kota</option>
-                    <option value="3">Kecamatan</option>
-                    <option value="4">Desa/Kelurahan</option>
                     <option value="5">PTPS</option>
+                    <option value="4">Desa/Kelurahan</option>
+                    <option value="3">Kecamatan</option>
+                    <option value="2">Kab/Kota</option>
+                    <option value="1">Provinsi</option>
                     <option value="6">Pusat</option>
                     <option value="999">Tidak Aktif</option>
                   </select>
@@ -511,6 +511,8 @@
                     user.value.kecamatan ? "&name_kecamatan=" + user.value.kecamatan : ""
                   }${
                     user.value.desa_kel ? "&name_desa_kel=" + user.value.desa_kel : ""
+                  }${
+                    user.value.level ? "&level=" + user.value.level : ""
                   }`,
                 {
                   method: "GET",
