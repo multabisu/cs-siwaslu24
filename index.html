@@ -62,7 +62,7 @@
           class="w-full"
           >
             <div class="text-center p-4">
-              <h1 class="text-3xl font-bold">SEMANGAT QAQA {{ admin_name.toUpperCase() }} 😘</h1>
+              <h1 class="text-3xl font-bold">CUMUNGUD EAK KAQ {{ admin_name.toUpperCase() }} 😘</h1>
               <small>Emang begitu user mah. Pokoknya tetap tenang dan sabar. Salam awas!</small>
             </div>
 
@@ -328,7 +328,7 @@
                         </div>
                         
                         <div v-else-if="key == 'tps_no' && selectedUser.level_id === 5">
-                          <input v-if="value" v-model="payloadChangeUser.tps" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  >
+                          <input v-if="value" v-model="payloadChangeUser.tps" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  >
                           <p v-else>-</p>
                         </div>
 
