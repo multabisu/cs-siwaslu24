@@ -584,6 +584,9 @@
               listUser.value = x.data.data;
 
               isLoading.value = false;
+            })
+            .catch((error) => {
+              isLoading.value = false;
             });
           };
 
