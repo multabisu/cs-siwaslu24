@@ -604,7 +604,7 @@
             async function postselectUser() {
               isLoading.value = true;
               const responseselectUser = await fetch(
-                baseUrl + `/api/user/${value.id}?withform=1`,
+                baseUrl + `/api/user/${value.id}`,
                 {
                   method: "GET",
                   headers: {
